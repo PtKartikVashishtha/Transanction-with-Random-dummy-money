@@ -1,0 +1,19 @@
+{
+  "name": "paytm-backend",
+  "version": "1.0.0",
+  "description": "Simple paytm-Backend",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "kartikVashishtha",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.3",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.10.0",
+    "zod": "^3.24.2"
+  }
+}
