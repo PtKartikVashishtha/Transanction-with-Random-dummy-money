@@ -7,15 +7,30 @@ import axios from "axios" ;
 import { NoUsers } from "../Components/NOUSers"
 import { Logout } from "../Components/Logout"
 
+function useDebounce(val){
+    const [ans , setAns] = useState(val) ;
+    useEffect(() => {
+      const value = setTimeout(() => {
+        setAns(val) ;
+      } , 100) ;
+      return () => {
+        clearTimeout(value) ;
+      }
+    } , [val]) ;
+    return ans ;
+}
+
 export const Dashboard = () => {
     const [user , setUser] = useState("")
     const [users , setUsers] = useState([]) ;
     const [name, setName] = useState("");
     const [balance, setBalance] = useState(0);
+    const value = useDebounce(user) ;
+    
     useEffect(() => {
         const token  = localStorage.getItem("token") ;
         const fun = async () => {
-            const response = await axios.get("http://localhost:3000/api/v1/user/bulk?filter="+user , {
+            const response = await axios.get("http://localhost:3000/api/v1/user/bulk?filter="+value , {
                 headers : {
                     authorization : `Bearer ${token}`
                 }
@@ -23,7 +38,7 @@ export const Dashboard = () => {
             setUsers(response.data.users) ;
         }
         fun() ;
-    } , [user]) ;
+    } , [value]) ;
     useEffect(() => {
         const token  = localStorage.getItem("token") ;
         axios.get("http://localhost:3000/api/v1/user/name" , {
